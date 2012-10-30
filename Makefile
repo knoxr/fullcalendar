@@ -54,17 +54,17 @@ zip:
 	@mkdir -p ${BUILD_DIR}/fullcalendar/fullcalendar/
 	
 	@echo "building core..."
-	@$(call concat_js,${SRC_DIR},"${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.js")
-	@$(call concat_css,${SRC_DIR},"${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.css")
+	@$(call concat_js,${SRC_DIR},"${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.ck.js")
+	@$(call concat_css,${SRC_DIR},"${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.ck.css")
 	@cat "${SRC_DIR}/common/print.css" \
 		| ${VER_SED} \
 		| ${DATE_SED} \
-		> "${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.print.css"
+		> "${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.ck.print.css"
 	
 	@echo "compressing core js..."
 	@java -jar ${BUILD_DIR}/compiler.jar --warning_level VERBOSE --jscomp_off checkTypes --externs build/externs.js \
-		--js ${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.js \
-		> ${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.min.js; \
+		--js ${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.ck.js \
+		> ${BUILD_DIR}/fullcalendar/fullcalendar/fullcalendar.ck.min.js; \
 		
 	@echo "building plugins..."
 	@for loader in ${SRC_DIR}/*/_loader.js; do \
