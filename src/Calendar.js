@@ -52,6 +52,13 @@ function Calendar(element, options, eventSources) {
 	var date = new Date();
 	var events = [];
 	var _dragElement;
+
+    /*
+     * Custom vars added in for CK usage.  If you want to restrict the calendar to only showing information in a specific
+     * date range, pass in Date objects for these two options to set lower and upper bounds, respectively.
+     */
+    var oldestAllowedDate = options.oldestAllowedDate || null;
+    var newestAllowedDate = options.newestAllowedDate || null;
 	
 	
 	
@@ -227,6 +234,20 @@ function Calendar(element, options, eventSources) {
 			}else{
 				header.enableButton('today');
 			}
+
+            if ((oldestAllowedDate != null) && (currentView.start <= oldestAllowedDate)) {
+                header.disableButton('prev');
+            }
+            else {
+                header.enableButton('prev');
+            }
+
+            if ((newestAllowedDate != null) && (currentView.end >= newestAllowedDate)) {
+                header.disableButton('next');
+            }
+            else {
+                header.enableButton('next');
+            }
 			
 			ignoreWindowResize--;
 			currentView.trigger('viewDisplay', _element);
